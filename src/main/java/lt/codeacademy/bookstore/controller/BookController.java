@@ -5,30 +5,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import lt.codeacademy.bookstore.dto.LivroDTO;
-import lt.codeacademy.bookstore.service.LivroService;
+import lt.codeacademy.bookstore.dto.BookDTO;
+import lt.codeacademy.bookstore.service.BookService;
 
 @RestController
-@RequestMapping("/livros")
-public class LivroController {
+@RequestMapping("/books")
+public class BookController {
 
     @Autowired
-    LivroService livroService;
+    BookService bookService;
 
 
     @GetMapping
     public ResponseEntity<Object> listar() {
         try {
-            return ResponseEntity.ok(livroService.listar());
+            return ResponseEntity.ok(bookService.listar());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getCategoria(@PathVariable Long id){
+    public ResponseEntity<Object> getCategory(@PathVariable Long id){
         try {
-            return ResponseEntity.ok(livroService.getById(id));
+            return ResponseEntity.ok(bookService.getById(id));
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -36,18 +36,18 @@ public class LivroController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> criar(@RequestBody @Valid LivroDTO livroDTO){
+    public ResponseEntity<Object> create(@RequestBody @Valid BookDTO bookDTO){
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(livroService.criar(livroDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(bookService.create(bookDTO));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> editar(@RequestBody @Valid LivroDTO livroDTO, @PathVariable Long id){
+    public ResponseEntity<Object> edit(@RequestBody @Valid BookDTO bookDTO, @PathVariable Long id){
         try {
-            return ResponseEntity.ok(livroService.editar(livroDTO, id));
+            return ResponseEntity.ok(bookService.editor(bookDTO, id));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -56,35 +56,35 @@ public class LivroController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id){
         try {
-            livroService.deletar(id);
-            return ResponseEntity.ok("Livro com id "+id+" foi removido com sucesso!");
+            bookService.delete(id);
+            return ResponseEntity.ok("Book with ID "+id+" was successfully removed!");
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-    @GetMapping("/categoria")
-    public ResponseEntity<Object> listarByCategoria(@RequestParam Long categoriaId){
+    @GetMapping("/category")
+    public ResponseEntity<Object> listarByCategory(@RequestParam Long categoryId){
         try{
-            return ResponseEntity.ok(livroService.getByCategoria(categoriaId));
+            return ResponseEntity.ok(bookService.getByCategory(categoryId));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-    @GetMapping("/editora")
-    public ResponseEntity<Object> listarByEditora(@RequestParam Long EditoraId){
+    @GetMapping("/editor")
+    public ResponseEntity<Object> listarByEditor(@RequestParam Long EditorId){
         try{
-            return ResponseEntity.ok(livroService.getByEditora(EditoraId));
+            return ResponseEntity.ok(bookService.getByEditor(EditorId));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<Object> listarByNomeOrIsbn(@RequestParam(name = "nome", defaultValue = "") String nome, @RequestParam(name = "isbn", defaultValue = "") String isbn){
+    public ResponseEntity<Object> listarByNameOrIsbn(@RequestParam(name = "name", defaultValue = "") String name, @RequestParam(name = "isbn", defaultValue = "") String isbn){
         try {
-            return ResponseEntity.ok(livroService.getByNomeAndIsbn(nome, isbn));
+            return ResponseEntity.ok(bookService.getByNameAndIsbn(name, isbn));
         }catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

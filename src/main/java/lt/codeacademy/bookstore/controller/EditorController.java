@@ -5,29 +5,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import lt.codeacademy.bookstore.dto.EditoraDTO;
-import lt.codeacademy.bookstore.service.EditoraService;
+import lt.codeacademy.bookstore.dto.EditorDTO;
+import lt.codeacademy.bookstore.service.EditorService;
 
 @RestController
-@RequestMapping("/editoras")
-public class EditoraController {
+@RequestMapping("/edit")
+public class EditorController {
 
     @Autowired
-    EditoraService editoraService;
+    EditorService editorService;
 
     @GetMapping
     public ResponseEntity<Object> listar() {
         try {
-            return ResponseEntity.ok(editoraService.listar());
+            return ResponseEntity.ok(editorService.listar());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getCategoria(@PathVariable Long id){
+    public ResponseEntity<Object> getCategory(@PathVariable Long id){
         try {
-            return ResponseEntity.ok(editoraService.getById(id));
+            return ResponseEntity.ok(editorService.getById(id));
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -35,18 +35,18 @@ public class EditoraController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> criar(@RequestBody @Valid EditoraDTO editoraDTO){
+    public ResponseEntity<Object> create(@RequestBody @Valid EditorDTO editorDTO){
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(editoraService.criar(editoraDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(editorService.create(editorDTO));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> editar(@RequestBody @Valid EditoraDTO editoraDTO, @PathVariable Long id){
+    public ResponseEntity<Object> edit(@RequestBody @Valid EditorDTO editorDTO, @PathVariable Long id){
         try {
-            return ResponseEntity.ok(editoraService.editar(editoraDTO, id));
+            return ResponseEntity.ok(editorService.edit(editorDTO, id));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -55,8 +55,8 @@ public class EditoraController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id){
         try {
-            editoraService.deletar(id);
-            return ResponseEntity.ok("Editora com id "+id+" foi removida com sucesso!");
+            editorService.delete(id);
+            return ResponseEntity.ok("Publisher with id "+id+" has been successfully removed!");
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

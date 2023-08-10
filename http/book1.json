@@ -1,0 +1,6 @@
+{
+  "name": "deadly game",
+  "isbn": "1472685395739",
+  "publisher": {"id": 1},
+  "category": {"id": 1}
+}

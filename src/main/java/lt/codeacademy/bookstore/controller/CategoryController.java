@@ -5,33 +5,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import lt.codeacademy.bookstore.dto.CategoriaDTO;
-import lt.codeacademy.bookstore.service.CategoriaService;
+import lt.codeacademy.bookstore.dto.CategoryDTO;
+import lt.codeacademy.bookstore.service.CategoryService;
 
 @RestController
-@RequestMapping("/categorias")
-public class CategoriaController {
+@RequestMapping("/category")
+public class CategoryController {
 
     @Autowired
-    CategoriaService categoriaService;
+    CategoryService categoryService;
 
     @GetMapping
     public ResponseEntity<Object> listar() {
         try {
-            return ResponseEntity.ok(categoriaService.listar());
+            return ResponseEntity.ok(categoryService.listar());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
-    @GetMapping("/labas")
-    public String labas(){
-        return "Hello";
-    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getCategoria(@PathVariable Long id){
+    public ResponseEntity<Object> getCategory(@PathVariable Long id){
         try {
-            return ResponseEntity.ok(categoriaService.getById(id));
+            return ResponseEntity.ok(categoryService.getById(id));
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -39,18 +35,18 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> criar(@RequestBody @Valid CategoriaDTO categoriaDTO){
+    public ResponseEntity<Object> create(@RequestBody @Valid CategoryDTO categoryDTO){
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.criar(categoriaDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.create(categoryDTO));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> editar(@RequestBody @Valid CategoriaDTO categoriaDTO, @PathVariable Long id){
+    public ResponseEntity<Object> edit(@RequestBody @Valid CategoryDTO categoryDTO, @PathVariable Long id){
         try {
-            return ResponseEntity.ok(categoriaService.editar(categoriaDTO, id));
+            return ResponseEntity.ok(categoryService.editor(categoryDTO, id));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -59,8 +55,8 @@ public class CategoriaController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable Long id){
         try {
-            categoriaService.deletar(id);
-            return ResponseEntity.ok("Categoria com id "+id+" foi removida com sucesso!");
+            categoryService.delete(id);
+            return ResponseEntity.ok("Category with id "+id+" was removed successfully!");
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

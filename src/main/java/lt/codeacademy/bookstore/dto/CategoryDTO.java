@@ -7,13 +7,13 @@ import lombok.Data;
 
 
 @Data
-public class CategoriaDTO {
+public class CategoryDTO {
 
     private Long id;
 
-    @NotBlank(message = "Nome inválido.")
-    @Size(max = 100, message = "Tamanho de nome acima do limite permitido.")
-    private String nome;
+    @NotBlank(message = "Invalid name.")
+    @Size(max = 100, message = "Name length above allowed limit.")
+    private String name;
 
 }
 

@@ -7,14 +7,14 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class EditoraDTO {
+public class EditorDTO {
 
     private Long id;
 
-    @NotBlank(message = "Nome inválido.")
-    @Size(max = 100, message = "Tamanho de nome acima do limite permitido.")
-    private String nome;
+    @NotBlank(message = "Invalid name.")
+    @Size(max = 100, message = "Name length above allowed limit.")
+    private String name;
 
-    private String descricao;
+    private String description;
 
 }
