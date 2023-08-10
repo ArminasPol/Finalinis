@@ -1,0 +1,25 @@
+### salvar editora
+POST http://localhost:8080/editoras
+Content-Type: application/json
+
+< ./editora.json
+
+### salvar categoria
+POST http://localhost:8080/categorias
+Content-Type: application/json
+
+< ./categoria.json
+
+### salvar livro1
+POST http://localhost:8080/livros
+Content-Type: application/json
+
+< ./livro1.json
+
+### listar todos livros
+GET http://localhost:8080/livros
+Content-Type: application/json
+
+### listar todos editora
+GET http://localhost:8080/editoras
+Content-Type: application/json
