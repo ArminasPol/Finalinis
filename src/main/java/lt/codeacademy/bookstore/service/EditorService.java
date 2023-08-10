@@ -20,6 +20,7 @@ public class EditorService {
     @Autowired
     EditMapper editMapper;
 
+    String message = "Category not found.";
     public List<EditorDTO> listar() {
         return editMapper.updateListEditorEntity(editorRepository.findAll());
     }
@@ -29,7 +30,7 @@ public class EditorService {
         if (editorOptional.isPresent()) {
             return editMapper.updateEditor(editorOptional.get());
         }
-        throw new EntityNotFoundException("Categoria não encontrada.");
+        throw new EntityNotFoundException(message);
     }
 
     public EditorDTO create(EditorDTO editor) {
@@ -42,7 +43,7 @@ public class EditorService {
         if (editorOptional.isPresent()) {
              editorRepository.deleteById(id);
         }
-        throw new EntityNotFoundException("Categoria não encontrada.");
+        throw new EntityNotFoundException(message);
     }
 
     public EditorDTO edit(EditorDTO editorDTO, Long id){
@@ -52,6 +53,6 @@ public class EditorService {
             editorRepository.save(editor);
             return editMapper.updateEditor(editor);
         }
-        throw new EntityNotFoundException("Categoria não encontrada.");
+        throw new EntityNotFoundException(message);
     }
 }
